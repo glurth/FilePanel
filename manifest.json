@@ -9,7 +9,6 @@
     }
   ],
   "dependencies": {
-    "com.glurth.limitedobjectscrollist": "1.0.0",
-    "com.glurth.filepanel": "1.0.0"
+    "com.glurth.limitedobjectscrollist": "1.0.0"
   }
 }
