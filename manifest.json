@@ -4,10 +4,10 @@
     },
   "scopedRegistries": [
     {
-      "name": "Glurth Git Packages",
+      "name": "Glurth limittedobjectscrollist Git Package",
       "url": "https://github.com/glurth/LimitedObjectScrollList",
       "scopes": [
-        "com.glurth"
+        "com.glurth.limittedobjectscrollist"
       ]
     }
   ],
