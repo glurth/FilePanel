@@ -2,13 +2,12 @@
   "scopedRegistries": [
     {
       "name": "My GitHub Packages",
-      "url": "https://pkg.entitlements.unity3d.com/glurth",
+      "url": "https://github.com/glurth",
       "scopes": [
         "com.glurth"
       ]
     }
   ],
   "dependencies": {
-    "com.glurth.limitedobjectscrollist": "1.0.0"
   }
 }
