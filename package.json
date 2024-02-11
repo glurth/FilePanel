@@ -4,15 +4,6 @@
   "displayName": "FilePanel",
   "description": "Displays a windows to show files on the system",
   "unity": "2019.1",
-  "scopedRegistries": [
-    {
-      "name": "Glurth GitHub Packages",
-      "url": "https://github.com/glurth/LimitedObjectScrollList",
-      "scopes": [
-        "com.glurth.limitedobjectscrollist"
-      ]
-    }
-  ],
   "dependencies": {
     "com.glurth.limitedobjectscrollist": "1.0.0"
   },
