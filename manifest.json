@@ -1,0 +1,16 @@
+{
+    "dependencies": {
+        
+    },
+  "scopedRegistries": [
+    {
+      "name": "Glurth Git Packages",
+      "url": "https://github.com/glurth/LimitedObjectScrollList.git",
+      "scopes": [
+        "com.glurth"
+      ]
+    }
+  ],
+  "registry": "https://registry.npmjs.org/",
+  "name": "com.glurth.filepanel"
+}
