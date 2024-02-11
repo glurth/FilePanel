@@ -1,16 +1,15 @@
 {
-    "dependencies": {
-        
-    },
   "scopedRegistries": [
     {
-      "name": "Glurth limittedobjectscrollist Git Package",
-      "url": "https://github.com/glurth/LimitedObjectScrollList",
+      "name": "My GitHub Packages",
+      "url": "https://unity.pkg.github.com/glurth",
       "scopes": [
-        "com.glurth.limittedobjectscrollist"
+        "com.glurth"
       ]
     }
   ],
-  "registry": "https://registry.npmjs.org/",
-  "name": "com.glurth.filepanel"
+  "dependencies": {
+    "com.glurth.limitedobjectscrollist": "1.0.0",
+    "com.glurth.filepanel": "1.0.0"
+  }
 }
