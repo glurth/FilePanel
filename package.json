@@ -7,9 +7,9 @@
   "scopedRegistries": [
     {
       "name": "Glurth GitHub Packages",
-      "url": "https://github.com/glurth",
+      "url": "https://github.com/glurth/LimitedObjectScrollList.git",
       "scopes": [
-        "com.glurth"
+        "com.glurth.limitedobjectscrollist"
       ]
     }
   ],
