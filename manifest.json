@@ -2,7 +2,7 @@
   "scopedRegistries": [
     {
       "name": "My GitHub Packages",
-      "url": "https://unity.pkg.github.com/glurth",
+      "url": "https://github.com/glurth",
       "scopes": [
         "com.glurth"
       ]
