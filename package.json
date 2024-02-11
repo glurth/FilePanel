@@ -1,0 +1,12 @@
+{
+  "name": "com.glurth.filepanel",
+  "version": "1.0.0",
+  "displayName": "FilePanel",
+  "description": "Displays a windows to show files on the system",
+  "unity": "2019.1",
+  "dependencies": {},
+  "author": {
+    "name": "Glurth"
+  },
+  "hideInEditor": "false"
+}
