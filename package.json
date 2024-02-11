@@ -4,7 +4,9 @@
   "displayName": "FilePanel",
   "description": "Displays a windows to show files on the system",
   "unity": "2019.1",
-  "dependencies": {},
+  "dependencies": {
+    "com.glurth.limittedobjectscrollist": "1.0.0"
+  },
   "author": {
     "name": "Glurth"
   },
