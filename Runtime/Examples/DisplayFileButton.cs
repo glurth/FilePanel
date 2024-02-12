@@ -7,6 +7,9 @@ using UnityEngine.Events;
 
 namespace EyE.Unity.UI
 {
+    /// <summary>
+    /// This component should be added to the preFab for the line item in the File Panel's list.
+    /// </summary>
     [RequireComponent(typeof(Button))]
     public class DisplayFileButton : MonoBehaviour, IDisplayFileInfo 
     {
@@ -66,7 +69,7 @@ namespace EyE.Unity.UI
                 if (size)// folders dont have a size
                 {
                     FileInfo file = fileInfo as FileInfo;
-                    filePropertiesTextControls[controlCounter++].text = PossibleAddRightAlign(file.Length.FormatLargeNumber() + "bytes");
+                    filePropertiesTextControls[controlCounter++].text = PossibleAddRightAlign(file.Length.FormatLargeNumberSI() + "bytes");
                 }
                 folderIcon.gameObject.SetActive(false);
             }

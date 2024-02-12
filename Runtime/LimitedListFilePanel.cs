@@ -42,7 +42,7 @@ namespace EyE.Unity.UI
         public Color unselectedColor = Color.gray;
         #endregion
 
-        FileSystemInfo selectedFile = null;
+        //assigned in Open
         UnityAction<FileSystemInfo> fileConfirmedActionCallback;
         UnityAction<FileSystemInfo> fileConfirmedAction2Callback;
         UnityAction canceledCallback;
@@ -54,7 +54,8 @@ namespace EyE.Unity.UI
         string fileExtension;
         bool showDirectories = true; //weather or not folder should be shown, if not- directory changing will not be possible.
 
-
+        //state info
+        FileSystemInfo selectedFile = null;
         string currentPath;
         float lastClickTime = 0; //used to detect doubleclick
  
@@ -86,6 +87,25 @@ namespace EyE.Unity.UI
 
         }
 
+        /// <summary>
+        /// Opens a file dialog window with customizable options.  A single instance of a LimitedListFilePanel must exist in the scene
+        /// </summary>
+        /// <param name="titleText">The title text displayed at the top of the window.</param>
+        /// <param name="selectExistingFileOnly">When true, the user can only choose an existing file and cannot enter a filename.</param>
+        /// <param name="defaultFilename">The default filename given when allowing file save to a new file.</param>
+        /// <param name="warnOnExistingFileSelected">Determines whether a warning should be shown when an existing file is selected.</param>
+        /// <param name="existingFileSelectedWarningText">The warning text to display when an existing file is selected and accepted.</param>
+        /// <param name="filterForExtension">Specifies if the starting search filter should be by extension only.</param>
+        /// <param name="fileExtension">The file extension used for filtering if filterForExtension is true.</param>
+        /// <param name="showDirectories">Determines whether directories should be shown in the file dialog.</param>
+        /// <param name="actionText">The text to display on the action button.</param>
+        /// <param name="fileConfirmedActionCallback">The action to perform after the user confirms the file selection.</param>
+        /// <param name="action2Text">Optional text for a second action button.</param>
+        /// <param name="fileConfirmedAction2Callback">Optional action for the second action button.</param>
+        /// <param name="cancelText">Optional text for the cancel button.</param>
+        /// <param name="canceledCallback">Optional action to perform when the dialog is canceled.</param>
+        /// <param name="customGetFileDetailsDisplayStringFunction">Optional function to customize the display string for file details.</param>
+        /// <param name="startingPath">Optional starting path for the file dialog.</param>
         public void Open(
             string titleText, //will be displayed at the top of the window
             bool selectExistingFileOnly, //when true user will not be able to enter a filename, they will only be able to choose an existing file
@@ -384,7 +404,7 @@ namespace EyE.Unity.UI
                 "<B>Modified:</B>\n" +
                 fileInfo.LastWriteTime + "\n" +
                 "<B>Size:</B>\n" +
-                file.Length.FormatLargeNumber() + "bytes";
+                file.Length.FormatLargeNumberSI() + "bytes";
             else
                 return
                 "<B>Path:</B>\n" +

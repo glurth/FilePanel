@@ -10,55 +10,7 @@ using UnityEngine.EventSystems;
 namespace EyE.Unity.UI
 {
 
-    public struct FileSystemInfoWithNameOverride
-    {
-        public FileSystemInfo info;
-        public string overrideName;
-
-        public FileSystemInfoWithNameOverride(FileSystemInfo info, string overrideName)
-        {
-            this.info = info;
-            this.overrideName = overrideName;
-        }
-    }
-
-    public interface IDisplayFileInfo : IDisplay<FileSystemInfoWithNameOverride>
-    {
-        public void Display(FileSystemInfo fileInfo, string overrideName=null);
-        //public void Display(FileSystemInfoWithNameOverride fileInfo);
-    }
-
-    static public class LongExtensions
-    {
-        public static string FormatLargeNumber(this long num)
-        {
-            string[] modifiers = { " ", " Kilo", " Mega", " Giga", " Tera", " Peta", " Exa", " Zetta", " Yotta" };
-            // Determine the appropriate modifier
-            int i = 0;
-            long workingNum = num;
-            while (workingNum >= 1000 && i < modifiers.Length - 1)
-            {
-                workingNum /= 1000;
-                i++;
-            }
-            // Format the number with modifier
-            if (workingNum >= 100)
-                return workingNum.ToString("F0") + modifiers[i];
-            else
-            {
-                float floatNum = num / Mathf.Pow(1000, i);
-                if(workingNum>=10)
-                    return floatNum.ToString("F1") + modifiers[i];
-                else
-                    return floatNum.ToString("F2") + modifiers[i];
-                //if (workingNum >= 10)
-            }  
-
-        }
-
-    }
-
-    public static class GiveHoverDetect
+    static class GiveHoverDetect
     {
         /// <summary>
         /// This function will find any event triggers on the specified object (and, optionally, it's children) and make them respond to PointerEnter and PointerExit UI events, such that they will call the parameter UnityActions when triggered.
@@ -506,7 +458,7 @@ namespace EyE.Unity.UI
                 "<B>Modified:</B>\n" +
                 fileInfo.LastWriteTime + "\n" +
                 "<B>Size:</B>\n" +
-                file.Length.FormatLargeNumber() + "bytes";
+                file.Length.FormatLargeNumberSI() + "bytes";
             else
                 return
                 "<B>Path:</B>\n" +
