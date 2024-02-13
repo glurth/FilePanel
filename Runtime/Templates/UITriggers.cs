@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace EyE.Unity.UI.Example
+namespace EyE.Unity.UI.Templates
 {
 
     /// <summary>

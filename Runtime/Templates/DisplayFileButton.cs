@@ -5,13 +5,13 @@ using TMPro;
 using EyE.Unity.UI;
 using UnityEngine.Events;
 
-namespace EyE.Unity.UI
+namespace EyE.Unity.UI.Templates
 {
     /// <summary>
     /// This component should be added to the preFab for the line item in the File Panel's list.
     /// </summary>
     [RequireComponent(typeof(Button))]
-    public class DisplayFileButton : MonoBehaviour, IDisplayFileInfo 
+    public class DisplayFileButton : DisplayFileMono
     {
         public bool showName;
         public bool extension;
@@ -25,11 +25,11 @@ namespace EyE.Unity.UI
         public Image folderIcon;
         
         //lets this class work with objects that use IDisplay<T>
-        public void Display(FileSystemInfoWithNameOverride displayInfo)
+        override public void Display(FileSystemInfoWithNameOverride displayInfo)
         {
             Display(displayInfo.info, displayInfo.overrideName);
         }
-        public void Display(FileSystemInfo fileInfo, string overrideName = null)
+        override public void Display(FileSystemInfo fileInfo, string overrideName = null)
         {
             
             int numPropertiesDisplayed = 0;

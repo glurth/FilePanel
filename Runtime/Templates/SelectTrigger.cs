@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace EyE.Unity.UI.Example
+namespace EyE.Unity.UI.Templates
 {
     [RequireComponent(typeof(Selectable))]
     public class SelectTrigger : MonoBehaviour, ISelectHandler, ITriggerOnSelect
