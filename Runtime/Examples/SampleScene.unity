@@ -139,6 +139,34 @@ PrefabInstance:
       propertyPath: m_text
       value: Load Any File
       objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1567500704}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadAnyFilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EyE.Unity.UI.Example.FilePanelExamples, Glurth.FilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7724299415816398112, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -244,6 +272,38 @@ PrefabInstance:
     - target: {fileID: 267318224291483173, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
       propertyPath: m_Name
       value: SaveAnyFile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937344695169567771, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_text
+      value: Save Any File
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1567500704}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveAnyFilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EyE.Unity.UI.Example.FilePanelExamples, Glurth.FilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7724299415816398112, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
       propertyPath: m_Pivot.x
@@ -928,6 +988,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: SaveGameToFile
       objectReference: {fileID: 0}
+    - target: {fileID: 1937344695169567771, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_text
+      value: Save Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1567500704}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveSimGameFilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EyE.Unity.UI.Example.FilePanelExamples, Glurth.FilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7724299415816398112, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1056,8 +1148,8 @@ RectTransform:
   m_Children:
   - {fileID: 1144621220}
   - {fileID: 2110992820}
-  - {fileID: 203665585}
   - {fileID: 485533657}
+  - {fileID: 203665585}
   m_Father: {fileID: 1593784814}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1258,6 +1350,38 @@ PrefabInstance:
     - target: {fileID: 267318224291483173, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
       propertyPath: m_Name
       value: LoadSaveGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937344695169567771, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_text
+      value: Load Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1567500704}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadSimGameFilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EyE.Unity.UI.Example.FilePanelExamples, Glurth.FilePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302845261630190484, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7724299415816398112, guid: 6232681b64ebd7748aedcd0a3790b4e4, type: 3}
       propertyPath: m_Pivot.x
