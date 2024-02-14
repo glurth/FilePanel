@@ -132,12 +132,14 @@ namespace EyE.Unity.UI
         {
             get
             {
+                if (searchPatternInput == null) return "*." + fileExtension;
                 if (!allowExtensionChange)
-                    return searchPatternInput.text + fileExtension;
+                    return searchPatternInput.text +"."+ fileExtension;
                 return searchPatternInput.text;
             }
             set
             {
+                if (searchPatternInput == null) return;
                 if (!allowExtensionChange)
                 {
                     int lastDotIndex = value.LastIndexOf('.');
@@ -229,9 +231,9 @@ namespace EyE.Unity.UI
             title.text = titleText;
             title.gameObject.SetActive(!string.IsNullOrEmpty(titleText));
             
-            fileNameDisplayAndInput.onValueChanged.AddListener(HandleFileNameChanged);
+            
 
-            actionButton.onClick.AddListener(HandleActionButtonClicked);
+            //actionButton.onClick.AddListener(HandleActionButtonClicked);
             if (actionButtonTextComponent != null)
                 if (!string.IsNullOrEmpty(actionText))
                     actionButtonTextComponent.text = actionText;
@@ -242,7 +244,7 @@ namespace EyE.Unity.UI
             {
                 if (fileConfirmedAction2Callback != null)
                 {
-                    action2Button.onClick.AddListener(HandleActionButton2Clicked);
+                   // action2Button.onClick.AddListener(HandleActionButton2Clicked);
                     action2Button.gameObject.SetActive(true);
                     if (action2ButtonTextComponent != null)
                         if (!string.IsNullOrEmpty(action2Text))
@@ -254,22 +256,28 @@ namespace EyE.Unity.UI
                     action2Button.gameObject.SetActive(false);
             }
 
-            cancelButton.onClick.AddListener(canceledCallback);
-            cancelButton.onClick.AddListener(() => gameObject.SetActive(false));
+           // cancelButton.onClick.AddListener(canceledCallback);
+           // cancelButton.onClick.AddListener(() => gameObject.SetActive(false));
 
             if (cancelButtonTextComponent != null)
                 if (!string.IsNullOrEmpty(cancelText))
                     cancelButtonTextComponent.text = cancelText;
                 else
                     cancelButtonTextComponent.text = "Cancel";
+            currentSearchString = "*." + fileExtension;
+
+            /*if (searchPatternInput != null)
+                if (allowExtensionChange)
+                    searchPatternInput.text = "*." + fileExtension;
+                else
+                    searchPatternInput.text = "*";*/
 
             fileNameDisplayAndInput.interactable = !selectExistingFileOnly;
             fileNameDisplayAndInput.text = defaultFilename;
-            if(allowExtensionChange)
-                searchPatternInput.text = "*." + fileExtension;
-            else
-                searchPatternInput.text = "*";
-            searchPatternInput.onValueChanged.AddListener(HandleSearchFieldChanged);
+            // fileNameDisplayAndInput.onValueChanged.AddListener(HandleFileNameChanged);
+
+            //searchPatternInput.onValueChanged.AddListener(HandleSearchFieldChanged);
+            AddListeners();
             #endregion
 
             SetupFileDisplayList();
@@ -279,26 +287,43 @@ namespace EyE.Unity.UI
             gameObject.SetActive(true);
         }
 
+        bool listenersAdded = false;
+        void AddListeners()
+        {
+            if (!listenersAdded)
+            {
+                actionButton.onClick.AddListener(HandleActionButtonClicked);
+                if (action2Button != null)
+                {
+                    action2Button.onClick.AddListener(HandleActionButton2Clicked);
+                }
+                cancelButton.onClick.AddListener(canceledCallback);
+                cancelButton.onClick.AddListener(Deactivate);
+                fileNameDisplayAndInput.onValueChanged.AddListener(HandleFileNameChanged);
+                if(searchPatternInput!=null)
+                    searchPatternInput.onValueChanged.AddListener(HandleSearchFieldChanged);
+
+                limitedFileScrollList.onClickEvent.AddListener(HandleFileClicked);
+                limitedFileScrollList.onPointerEnterEvent.AddListener(HandleFileMouseOver);
+                limitedFileScrollList.onPointerExitEvent.AddListener(HandleFileMouseExit);
+                limitedFileScrollList.onSelectEvent.AddListener(HandleFileSelected);
+                limitedFileScrollList.onElementInView.AddListener(HandleFileInView);
+
+                listenersAdded = true;
+            }
+        }
+        void Deactivate()
+        {
+            gameObject.SetActive(false);
+        }
         void SetupFileDisplayList()
         {
 
             DirectoryInfo currentDirectory = new DirectoryInfo(currentPath);
             if (!currentDirectory.Exists)
                 throw new DirectoryNotFoundException("Trying to show files in non-existent directory.");
-            string searchPattern = currentSearchString;// "*";
-            /*if (!string.IsNullOrEmpty(searchPatternInput.text)) searchPattern = searchPatternInput.text;
-            if (!allowExtensionChange)
-            {
-                // Find the index of the last occurrence of '.'
-                int lastDotIndex = searchPattern.LastIndexOf('.');
 
-                if (lastDotIndex != -1)  // If '.' is found
-                {
-                    searchPattern = searchPattern.Substring(0, lastDotIndex);
-                }
-                searchPattern += fileExtension;
-            }*/
-            List<FileSystemInfo> filesFound = new List<FileSystemInfo>(currentDirectory.GetFileSystemInfos(searchPattern));
+            List<FileSystemInfo> filesFound = new List<FileSystemInfo>(currentDirectory.GetFileSystemInfos(currentSearchString));
             filesFound.Sort(CompareFilesystemEntries);
             //insert "up" folder after sort, so it' always on top
             if (showDirectories)
@@ -309,7 +334,7 @@ namespace EyE.Unity.UI
                     filesFound.Insert(0, parentDir);
                 }
             }
-            displayedFiles = filesFound;// new List<FileSystemInfo>(filesFound);
+            displayedFiles = filesFound;
 
             //convert List<FileSystemInfo> filesFound, into a new List<FileSystemInfoWithNameOverride> displayArray
             List<FileSystemInfoWithNameOverride> displayArray = new List<FileSystemInfoWithNameOverride>();
@@ -325,6 +350,7 @@ namespace EyE.Unity.UI
             }
             
             limitedFileScrollList.SetList(displayArray);
+            /*
             limitedFileScrollList.onClickEvent.RemoveAllListeners();
             limitedFileScrollList.onClickEvent.AddListener(HandleFileClicked);
 
@@ -338,11 +364,11 @@ namespace EyE.Unity.UI
             limitedFileScrollList.onSelectEvent.AddListener(HandleFileSelected);
 
             limitedFileScrollList.onElementInView.RemoveAllListeners();
-            limitedFileScrollList.onElementInView.AddListener(HandleFileInView);
+            limitedFileScrollList.onElementInView.AddListener(HandleFileInView);*/
         }
         void HandleActionButtonClicked()
         {
-            if (selectedFile.Exists && warnOnAction1ExistingFileSelected)
+            if (selectedFile!=null && selectedFile.Exists && warnOnAction1ExistingFileSelected)
                 YesNoPanel.Open(HandleConfirmActionClicked, existingFileSelectedOnAction1WarningText);
             else
                 HandleConfirmActionClicked(1);
@@ -358,7 +384,16 @@ namespace EyE.Unity.UI
         {
             if (confirm != 0)
             {
-                fileConfirmedActionCallback.Invoke(selectedFile);
+                if (selectedFile != null)
+                    fileConfirmedActionCallback.Invoke(selectedFile);
+                else
+                {
+                    string filename = fileNameDisplayAndInput.text;
+                    if (!allowExtensionChange)
+                        filename += "*." + fileExtension;
+                    FileInfo a =new FileInfo(filename);
+                    fileConfirmedActionCallback.Invoke(a);
+                }
                 gameObject.SetActive(false);
             }
         }
@@ -513,24 +548,28 @@ namespace EyE.Unity.UI
             */
         }
         void HandleSortFieldChange()
-        { SetupFileDisplayList(); }
+        {
+            SetupFileDisplayList();
+        }
 
         void HandleFileNameChanged(string ignored)
         {
             string newFilename = fileNameDisplayAndInput.text;
             if (!allowExtensionChange) newFilename += "." + fileExtension;
             //search files for one with this filename- if found, select it
-            foreach (FileSystemInfo info in displayedFiles)
+            for(int i=0;i<displayedFiles.Count;i++)
             {
+                FileSystemInfo info = displayedFiles[i];
                 if (info.Name == newFilename)
                 {
-                    selectedFile = info;
-                    SetupFileDisplayList();
+                   // selectedFile = info;
+                    HandleFileSelected(i);
+//                    SetupFileDisplayList();
                     return;
                 }
             }
-            selectedFile = null;
-            SetupFileDisplayList();
+          //  selectedFile = null;
+          //  SetupFileDisplayList();
         }
         string FileDetailsText(FileSystemInfo fileInfo)
         {
