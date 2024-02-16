@@ -20,7 +20,7 @@ namespace EyE.Unity.UI
 
 
     /// <summary>
-    /// this interface will be implemented by a component on the preFab (like the template class, DisplayFileButton).  When Display is called by the system, it will show it on screen.
+    /// this interface will be implemented by a component on the preFab (like the template class, DisplayFileButton).  When Display is called by the system, implementers will show it on screen.
     /// </summary>
     public interface IDisplayFileInfo : IDisplay<FileSystemInfoWithNameOverride>
     {
@@ -30,14 +30,16 @@ namespace EyE.Unity.UI
 
     /// <summary>
     /// abstract base class for components that will be displayed in a LimitedFileScrollList.  User must implement the abstract IDisplayFileInfo and IDisplay<FileSystemInfoWithNameOverride> functions.
+    /// The template ``DisplayFileButton`` class is a concrete derivative of this class.
     /// </summary>
     abstract public class DisplayFileMono : MonoBehaviour, IDisplayFileInfo
     {
         abstract public void Display(FileSystemInfo fileInfo, string overrideName = null);
         abstract public void Display(FileSystemInfoWithNameOverride obj);
     }
+
     /// <summary>
-    /// A scene-object efficient ScrollList that displays a list of FileSystemInfoWithNameOverride objects, using a DisplayFileButton preFab.
+    /// A scene-object efficient ScrollList that displays a list of FileSystemInfoWithNameOverride objects, using a DisplayFileMono preFab.
     /// Utilizes the LimitedObjectScrollList package.
     /// </summary>
     public class LimitedFileScrollList : LimitedObjectScrollList<FileSystemInfoWithNameOverride, DisplayFileMono>

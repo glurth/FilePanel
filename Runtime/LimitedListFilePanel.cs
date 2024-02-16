@@ -390,7 +390,7 @@ namespace EyE.Unity.UI
                 {
                     string filename = fileNameDisplayAndInput.text;
                     if (!allowExtensionChange)
-                        filename += "*." + fileExtension;
+                        filename += "." + fileExtension;
                     FileInfo a =new FileInfo(filename);
                     fileConfirmedActionCallback.Invoke(a);
                 }
