@@ -13,6 +13,7 @@ namespace EyE.Unity.UI.Example
         void Start()
         {
             //   SaveAnyFilePanel();
+            Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
         }
 
         public void SaveAnyFilePanel()
@@ -26,12 +27,12 @@ namespace EyE.Unity.UI.Example
                 allowExtensionChange: true,
                 showDirectories: true,
                 actionText: "Save",
-                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.Name + " .. SAVED"); gameObject.SetActive(true); },
+                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.FullName + " .. SAVED"); gameObject.SetActive(true); },
                 canceledCallback: () => { Debug.Log("Cancel confirmed"); gameObject.SetActive(true); },
                 warnOnAction1ExistingFileSelected: true,
                 existingFileSelectedOnAction1WarningText: "Saving to this file will overwrite it contents.  Existing content will be lost. Proceed?",
                 action2Text: "Fake Delete",
-                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.Name + " will now be NOT ACTUALLY deleted"); },
+                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.FullName + " will now be NOT ACTUALLY deleted"); },
                 warnOnAction2ExistingFileSelected: true,
                 existingFileSelectedOnAction2WarningText: "This will permanently delete the selected file. Proceed?",
                 cancelText: null,
@@ -51,17 +52,17 @@ namespace EyE.Unity.UI.Example
                 allowExtensionChange: false,
                 showDirectories: false,
                 actionText: "Save",
-                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.Name + " .. SAVED"); gameObject.SetActive(true); },
+                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.FullName + " .. SAVED"); gameObject.SetActive(true); },
                 canceledCallback: () => { Debug.Log("Cancel confirmed"); gameObject.SetActive(true); },
                 warnOnAction1ExistingFileSelected: true,
                 existingFileSelectedOnAction1WarningText: "Saving to this file will overwrite it contents.  Existing content will be lost. Proceed?",
                 action2Text: "Fake Delete",
-                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.Name + " will now be NOT ACTUALLY deleted"); },
+                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.FullName + " will now be NOT ACTUALLY deleted"); },
                 warnOnAction2ExistingFileSelected: true,
                 existingFileSelectedOnAction2WarningText: "This will permanently delete the selected file. Proceed?",
                 cancelText: null,
                 customGetFileDetailsDisplayStringFunction: null,
-                startingPath: null
+                startingPath: Application.persistentDataPath
                 );
             gameObject.SetActive(false);
         }
@@ -76,12 +77,12 @@ namespace EyE.Unity.UI.Example
                 allowExtensionChange: true,
                 showDirectories: true,
                 actionText: "Load",
-                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.Name + " .. LOADING"); gameObject.SetActive(true); },
+                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.FullName + " .. LOADING"); gameObject.SetActive(true); },
                 canceledCallback: () => { Debug.Log("Cancel confirmed"); gameObject.SetActive(true); },
                 warnOnAction1ExistingFileSelected: false,
                 existingFileSelectedOnAction1WarningText: "Loading this file will lose all unsaved work. Proceed?",
                 action2Text: "Fake Delete",
-                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.Name + " will now be NOT ACTUALLY deleted"); },
+                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.FullName + " will now be NOT ACTUALLY deleted"); },
                 warnOnAction2ExistingFileSelected: true,
                 existingFileSelectedOnAction2WarningText: "This will permanently delete the selected file. Proceed?",
                 cancelText: null,
@@ -101,17 +102,17 @@ namespace EyE.Unity.UI.Example
                 allowExtensionChange: false,
                 showDirectories: false,
                 actionText: "Load",
-                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.Name + " .. LOADING"); gameObject.SetActive(true); },
+                fileConfirmedActionCallback: (FileSystemInfo f) => { Debug.Log("Action1 confirmed. file: " + f.FullName + " .. LOADING"); gameObject.SetActive(true); },
                 canceledCallback: () => { Debug.Log("Cancel confirmed"); gameObject.SetActive(true); },
                 warnOnAction1ExistingFileSelected: false,
                 existingFileSelectedOnAction1WarningText: "Loading this file will lose all unsaved work. Proceed?",
                 action2Text: "Fake Delete",
-                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.Name + " will now be NOT ACTUALLY deleted"); },
+                fileConfirmedAction2Callback: (FileSystemInfo f) => { Debug.Log("Action2 confirmed. file: " + f.FullName + " will now be NOT ACTUALLY deleted"); },
                 warnOnAction2ExistingFileSelected: true,
                 existingFileSelectedOnAction2WarningText: "This will permanently delete the selected file. Proceed?",
                 cancelText: null,
                 customGetFileDetailsDisplayStringFunction: null,
-                startingPath: null
+                startingPath: Application.persistentDataPath
                 );
             gameObject.SetActive(false);
         }

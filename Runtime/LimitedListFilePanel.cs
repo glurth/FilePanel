@@ -217,9 +217,9 @@ namespace EyE.Unity.UI
             this.currentPath = startingPath;
             this.customGetFileDetailsDisplayStringFunction = customGetFileDetailsDisplayStringFunction;
             if (startingPath == null)
-                currentPath = Application.dataPath;
-            else
-                currentPath = Path.Combine(Application.dataPath, startingPath);
+                this.currentPath = Application.dataPath;
+          //  else
+            //    currentPath = Path.Combine(Application.dataPath, startingPath);
             //this.selectedFileIndex = -1;
             this.selectedFile = null;
 
@@ -391,6 +391,8 @@ namespace EyE.Unity.UI
                     string filename = fileNameDisplayAndInput.text;
                     if (!allowExtensionChange)
                         filename += "." + fileExtension;
+
+                    filename = Path.Combine(currentPath, filename);
                     FileInfo a =new FileInfo(filename);
                     fileConfirmedActionCallback.Invoke(a);
                 }
