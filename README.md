@@ -94,4 +94,4 @@ It provides free, perpetual use for indie developers and non-commercial projects
 
 Organizations exceeding this threshold must obtain a Perpetual Commercial License (PCL) for each named commercial project.
 
-Please review the full terms in [LICENSE.md] before commercial use.
+Please review the full terms in [LICENSE.md](LICENSE.md) before commercial use.
