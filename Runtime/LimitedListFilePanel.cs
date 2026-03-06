@@ -559,19 +559,25 @@ namespace EyE.Unity.UI
             string newFilename = fileNameDisplayAndInput.text;
             if (!allowExtensionChange) newFilename += "." + fileExtension;
             //search files for one with this filename- if found, select it
-            for(int i=0;i<displayedFiles.Count;i++)
+
+            for (int i = 0; i < displayedFiles.Count; i++)
             {
-                FileSystemInfo info = displayedFiles[i];
-                if (info.Name == newFilename)
+                if (displayedFiles[i].Name == newFilename)
                 {
-                   // selectedFile = info;
                     HandleFileSelected(i);
-//                    SetupFileDisplayList();
                     return;
                 }
             }
-          //  selectedFile = null;
-          //  SetupFileDisplayList();
+
+            // If it doesn't match an existing file, clear selectedFile 
+            // so the manual input logic triggers on 'Confirm'
+            if (selectedFile != null)
+            {
+                int previousIndex = displayedFiles.IndexOf(selectedFile);
+                selectedFile = null;
+                ColorListElementBySelection(previousIndex); // Clear the highlight
+            }
+            //  SetupFileDisplayList();
         }
         string FileDetailsText(FileSystemInfo fileInfo)
         {
