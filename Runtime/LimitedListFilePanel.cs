@@ -502,10 +502,10 @@ namespace EyE.Unity.UI
         bool isSelectedFile(int fileIndex)
         {
             bool selected = (selectedFile != null && selectedFile.FullName == displayedFiles[fileIndex].FullName);
-            if (selectedFile != null)
+            /*if (selectedFile != null)
                 Debug.Log("selected name: " + selectedFile.FullName + "  entry name:" + displayedFiles[fileIndex].FullName + " isSelected:" + (selected));
             else
-                Debug.Log("no currntly selected file detected");
+                Debug.Log("no currntly selected file detected");*/
             return selected;
         }
 
@@ -528,12 +528,12 @@ namespace EyE.Unity.UI
         }
         void HandleFileInView(int fileIndex)
         {
-            Debug.Log("FileInView recieved: " + fileIndex + "    isSelected: " + isSelectedFile(fileIndex));
+         /*  Debug.Log("FileInView recieved: " + fileIndex + "    isSelected: " + isSelectedFile(fileIndex));
             if (selectedFile == null)
                 Debug.Log("selected file == null");
             else
                 Debug.Log("selected file: " + selectedFile.FullName);
-            Debug.Log("in view file: " + displayedFiles[fileIndex].FullName);
+            Debug.Log("in view file: " + displayedFiles[fileIndex].FullName);*/
             ColorListElementBySelection(fileIndex);
             if (isSelectedFile(fileIndex)) //selectedFile != null && selectedFile.Equals(displayedFiles[fileIndex]))//selectedFileIndex == fileIndex)
             {
@@ -544,30 +544,30 @@ namespace EyE.Unity.UI
         }
         void HandleFileClicked(int fileIndex)
         {
-            Debug.Log("filepanel onclick.  fileIndex: " + fileIndex);
-            Debug.Log("Time.realtimeSinceStartup:" + Time.realtimeSinceStartup + "lastClickTime:" + lastClickTime + " Diff:" + (Time.realtimeSinceStartup - lastClickTime));
+       //     Debug.Log("filepanel onclick.  fileIndex: " + fileIndex);
+       //     Debug.Log("Time.realtimeSinceStartup:" + Time.realtimeSinceStartup + "lastClickTime:" + lastClickTime + " Diff:" + (Time.realtimeSinceStartup - lastClickTime));
             if (Time.realtimeSinceStartup - lastClickTime < doubleClickMaxInterval)
             {
-                Debug.Log("checking File Selection");
+        //        Debug.Log("checking File Selection");
                 if (isSelectedFile(fileIndex))
                 {
-                    Debug.Log("Callingdoubel click");
+          //          Debug.Log("Callingdoubel click");
                     HandleFileDoubleClicked(fileIndex);
                     lastClickTime = Time.realtimeSinceStartup;
                     return;
                 }
                 else
                 {
-                    Debug.Log("NOT Callingdoubel click- file not sleected yet");
+            //        Debug.Log("NOT Callingdoubel click- file not sleected yet");
                 }
             }
             else
             {
-                Debug.Log("Timer- not a bbl click");
+              //  Debug.Log("Timer- not a bbl click");
             }
 
             lastClickTime = Time.realtimeSinceStartup;
-            Debug.Log("setting (and checking) File Selection");
+            //Debug.Log("setting (and checking) File Selection");
             HandleFileSelected(fileIndex);
             //FileSystemInfo fileClicked = displayedFiles[fileIndex];
         }
@@ -605,7 +605,7 @@ namespace EyE.Unity.UI
         }
         void HandleFileDoubleClicked(int fileIndex)
         {
-            Debug.Log("Double click");
+           // Debug.Log("Double click");
             //we ignore param in favor of "selectedFile"- should be the same after fileIndex lookup
             FileSystemInfo fileDblClicked = selectedFile;
             if (IsADirectory(fileDblClicked))
