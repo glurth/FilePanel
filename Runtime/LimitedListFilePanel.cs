@@ -59,16 +59,67 @@ namespace EyE.Unity.UI
             string startingPath = null)
         {
             FindInstance();
-            instance.Open( titleText, //will be displayed at the top of the window
+            instance.Open(titleText, //will be displayed at the top of the window
              selectExistingFileOnly, //when true user will not be able to enter a filename, they will only be able to choose an existing file
              defaultFilename, //when allowing file save to new file, this is the default file name it is given.  
-             filterForExtension,  fileExtension, allowExtensionChange, //if the starting search filter should be by extension only, and what that extension is
+             filterForExtension, fileExtension, allowExtensionChange, //if the starting search filter should be by extension only, and what that extension is
              showDirectories,
-             actionText,fileConfirmedActionCallback, //text that should be shown on the action button, and what to do after user has confirmed selection.
+             actionText, fileConfirmedActionCallback, //text that should be shown on the action button, and what to do after user has confirmed selection.
              canceledCallback,
-             warnOnAction1ExistingFileSelected,  existingFileSelectedOnAction1WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+             warnOnAction1ExistingFileSelected, existingFileSelectedOnAction1WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
              action2Text, fileConfirmedAction2Callback,
-             warnOnAction2ExistingFileSelected,  existingFileSelectedOnAction2WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+             warnOnAction2ExistingFileSelected, existingFileSelectedOnAction2WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+             cancelText,
+             customGetFileDetailsDisplayStringFunction,
+             startingPath);
+        }
+        /// <summary>
+        /// Opens a file dialog window with customizable options. A single instance of a LimitedListFilePanel must exist in the scene.
+        /// </summary>
+        /// <param name="titleText">The title text displayed at the top of the window.</param>
+        /// <param name="selectExistingFileOnly">When true, the user can only choose an existing file and cannot enter a filename.</param>
+        /// <param name="defaultFilename">The default filename given when allowing file save to a new file.</param>
+        /// <param name="filterForExtension">Specifies if the starting search filter should be by extension only.</param>
+        /// <param name="fileExtension">The file extension used for filtering if filterForExtension is true. Do not include dot.</param>
+        /// <param name="showDirectories">Determines whether directories should be shown in the file dialog.</param>
+        /// <param name="actionText">The text to display on the action button.</param>
+        /// <param name="fileConfirmedActionCallback">The action to perform after the user confirms the file selection.</param>
+        /// <param name="canceledCallback">Action to perform when the dialog is canceled.</param>
+        /// <param name="warnOnAction1ExistingFileSelected">Determines whether a warning should be shown when an existing file is selected for action1.</param>
+        /// <param name="existingFileSelectedOnAction1WarningText">The warning text to display when an existing file is selected and action1 is clicked.</param>
+        /// <param name="action2Text">Optional text for a second action button.</param>
+        /// <param name="fileConfirmedAction2Callback">Optional action for the second action button.</param>
+        /// <param name="warnOnAction2ExistingFileSelected">Determines whether a warning should be shown when an existing file is selected for action2.</param>
+        /// <param name="existingFileSelectedOnAction2WarningText">The warning text to display when an existing file is selected and action2 is clicked.</param>
+        /// <param name="cancelText">Optional text for the cancel button.</param>
+        /// <param name="customGetFileDetailsDisplayStringFunction">Optional function to customize the display string for file details.</param>
+        /// <param name="startingPath">Optional starting path for the file dialog.</param>
+        public static void Open(
+            string titleText, //will be displayed at the top of the window
+            bool selectExistingFileOnly, //when true user will not be able to enter a filename, they will only be able to choose an existing file
+            string defaultFilename, //when allowing file save to new file, this is the default file name it is given.  
+            bool filterForExtension, string fileExtension, bool allowExtensionChange,//if the starting search filter should be by extension only, and what that extension is
+            bool showDirectories,
+            string actionText, UnityAction<FileSystemInfo> fileConfirmedActionCallback, //text that should be shown on the action button, and what to do after user has confirmed selection.
+            UnityAction canceledCallback,
+            bool warnOnAction1ExistingFileSelected = false, string existingFileSelectedOnAction1WarningText = null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+            string action2Text = null, UnityAction<FileSystemInfo> fileConfirmedAction2Callback = null,
+            bool warnOnAction2ExistingFileSelected = false, string existingFileSelectedOnAction2WarningText = null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+            string cancelText = null,
+            System.Action<FileSystemInfo, System.Action<string>> customGetFileDetailsDisplayStringFunction = null,
+            string startingPath = null)
+        {
+            FindInstance();
+            instance.Open(titleText, //will be displayed at the top of the window
+             selectExistingFileOnly, //when true user will not be able to enter a filename, they will only be able to choose an existing file
+             defaultFilename, //when allowing file save to new file, this is the default file name it is given.  
+             filterForExtension, fileExtension, allowExtensionChange, //if the starting search filter should be by extension only, and what that extension is
+             showDirectories,
+             actionText, fileConfirmedActionCallback, //text that should be shown on the action button, and what to do after user has confirmed selection.
+             canceledCallback,
+             warnOnAction1ExistingFileSelected, existingFileSelectedOnAction1WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+             action2Text, fileConfirmedAction2Callback,
+             warnOnAction2ExistingFileSelected, existingFileSelectedOnAction2WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
              cancelText,
              customGetFileDetailsDisplayStringFunction,
              startingPath);
@@ -94,7 +145,7 @@ namespace EyE.Unity.UI
         public Button cancelButton;
         public TextMeshProUGUI cancelButtonTextComponent;
 
-    //    public Button fileItemButtonPreFab; // this prebfab will be used for each line item in the displayed list
+        //    public Button fileItemButtonPreFab; // this prebfab will be used for each line item in the displayed list
         public Transform fileListParent;// this will probably be a "content" object in a scroll view
         public TextMeshProUGUI hoverAndSelectedFileDetails;
         #endregion
@@ -123,7 +174,7 @@ namespace EyE.Unity.UI
         bool allowExtensionChange;
         bool showDirectories = true; //weather or not folder should be shown, if not- directory changing will not be possible.
         bool closeWindowOnAction2Confirmed = false;
-        
+
         //state info
         FileSystemInfo selectedFile = null;
         string currentPath;
@@ -134,7 +185,7 @@ namespace EyE.Unity.UI
             {
                 if (searchPatternInput == null) return "*." + fileExtension;
                 if (!allowExtensionChange)
-                    return searchPatternInput.text +"."+ fileExtension;
+                    return searchPatternInput.text + "." + fileExtension;
                 return searchPatternInput.text;
             }
             set
@@ -153,10 +204,11 @@ namespace EyE.Unity.UI
             }
         }
         float lastClickTime = 0; //used to detect doubleclick
- 
-        public System.Func<FileSystemInfo, string> customGetFileDetailsDisplayStringFunction = null;
 
-        
+        public System.Func<FileSystemInfo, string> customGetFileDetailsDisplayStringFunction = null;
+        public System.Action<FileSystemInfo, System.Action<string>> customGetFileDetailsDisplayCallbackStringFunction = null;
+
+
         List<FileSystemInfo> displayedFiles = new List<FileSystemInfo>();
         #endregion
 
@@ -190,13 +242,13 @@ namespace EyE.Unity.UI
             bool showDirectories,
             string actionText, UnityAction<FileSystemInfo> fileConfirmedActionCallback, //text that should be shown on the action button, and what to do after user has confirmed selection.
             UnityAction canceledCallback,
-            bool warnOnAction1ExistingFileSelected=false, string existingFileSelectedOnAction1WarningText=null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+            bool warnOnAction1ExistingFileSelected = false, string existingFileSelectedOnAction1WarningText = null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
             string action2Text = null, UnityAction<FileSystemInfo> fileConfirmedAction2Callback = null,
-            bool warnOnAction2ExistingFileSelected=false, string existingFileSelectedOnAction2WarningText=null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+            bool warnOnAction2ExistingFileSelected = false, string existingFileSelectedOnAction2WarningText = null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
             string cancelText = null,
             System.Func<FileSystemInfo, string> customGetFileDetailsDisplayStringFunction = null,
             string startingPath = null,
-            bool closeWindowOnAction2Confirmed=false)
+            bool closeWindowOnAction2Confirmed = false)
         {
             #region assignLocalVar
             //assign params to local variables to remember them
@@ -216,22 +268,26 @@ namespace EyE.Unity.UI
 
             this.currentPath = startingPath;
             this.customGetFileDetailsDisplayStringFunction = customGetFileDetailsDisplayStringFunction;
+            this.closeWindowOnAction2Confirmed = closeWindowOnAction2Confirmed;
             if (startingPath == null)
                 this.currentPath = Application.dataPath;
-          //  else
+
+
+            //  else
             //    currentPath = Path.Combine(Application.dataPath, startingPath);
             //this.selectedFileIndex = -1;
             this.selectedFile = null;
 
-            this.closeWindowOnAction2Confirmed = closeWindowOnAction2Confirmed;
+
             #endregion
 
             #region setup display components, subscribe to events, etc..
             //setup display components title, action buttons, etc
             title.text = titleText;
+
             title.gameObject.SetActive(!string.IsNullOrEmpty(titleText));
-            
-            
+
+
 
             //actionButton.onClick.AddListener(HandleActionButtonClicked);
             if (actionButtonTextComponent != null)
@@ -244,7 +300,7 @@ namespace EyE.Unity.UI
             {
                 if (fileConfirmedAction2Callback != null)
                 {
-                   // action2Button.onClick.AddListener(HandleActionButton2Clicked);
+                    // action2Button.onClick.AddListener(HandleActionButton2Clicked);
                     action2Button.gameObject.SetActive(true);
                     if (action2ButtonTextComponent != null)
                         if (!string.IsNullOrEmpty(action2Text))
@@ -256,8 +312,8 @@ namespace EyE.Unity.UI
                     action2Button.gameObject.SetActive(false);
             }
 
-           // cancelButton.onClick.AddListener(canceledCallback);
-           // cancelButton.onClick.AddListener(() => gameObject.SetActive(false));
+            // cancelButton.onClick.AddListener(canceledCallback);
+            // cancelButton.onClick.AddListener(() => gameObject.SetActive(false));
 
             if (cancelButtonTextComponent != null)
                 if (!string.IsNullOrEmpty(cancelText))
@@ -286,7 +342,41 @@ namespace EyE.Unity.UI
 
             gameObject.SetActive(true);
         }
+        public void Open(
+                string titleText, //will be displayed at the top of the window
+                bool selectExistingFileOnly, //when true user will not be able to enter a filename, they will only be able to choose an existing file
+                string defaultFilename, //when allowing file save to new file, this is the default file name it is given.  
+                bool filterForExtension, string fileExtension, bool allowExtensionChange,//if the starting search filter should be by extension only, and what that extension is
+                bool showDirectories,
+                string actionText, UnityAction<FileSystemInfo> fileConfirmedActionCallback, //text that should be shown on the action button, and what to do after user has confirmed selection.
+                UnityAction canceledCallback,
+                bool warnOnAction1ExistingFileSelected = false, string existingFileSelectedOnAction1WarningText = null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+                string action2Text = null, UnityAction<FileSystemInfo> fileConfirmedAction2Callback = null,
+                bool warnOnAction2ExistingFileSelected = false, string existingFileSelectedOnAction2WarningText = null,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+                string cancelText = null,
+                System.Action<FileSystemInfo, System.Action<string>> customGetFileDetailsDisplayStringFunction = null,
+                string startingPath = null,
+                bool closeWindowOnAction2Confirmed = false)
+        {
+            customGetFileDetailsDisplayCallbackStringFunction = customGetFileDetailsDisplayStringFunction;
+            //calltheother open with null for customdetails
+            Open(
+                    titleText, //will be displayed at the top of the window
+                    selectExistingFileOnly, //when true user will not be able to enter a filename, they will only be able to choose an existing file
+                    defaultFilename, //when allowing file save to new file, this is the default file name it is given.  
+                    filterForExtension, fileExtension, allowExtensionChange,//if the starting search filter should be by extension only, and what that extension is
+                    showDirectories,
+                    actionText, fileConfirmedActionCallback, //text that should be shown on the action button, and what to do after user has confirmed selection.
+                    canceledCallback,
+                    warnOnAction1ExistingFileSelected, existingFileSelectedOnAction1WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+                    action2Text, fileConfirmedAction2Callback,
+                    warnOnAction2ExistingFileSelected, existingFileSelectedOnAction2WarningText,  //if and what warning should be shown when an existing file is selected, and accept is clicked
+                    cancelText,
+                    (System.Func<FileSystemInfo, string>)null,
+                    startingPath,
+                    closeWindowOnAction2Confirmed);
 
+        }
         bool listenersAdded = false;
         void AddListeners()
         {
@@ -300,7 +390,7 @@ namespace EyE.Unity.UI
                 cancelButton.onClick.AddListener(canceledCallback);
                 cancelButton.onClick.AddListener(Deactivate);
                 fileNameDisplayAndInput.onValueChanged.AddListener(HandleFileNameChanged);
-                if(searchPatternInput!=null)
+                if (searchPatternInput != null)
                     searchPatternInput.onValueChanged.AddListener(HandleSearchFieldChanged);
 
                 limitedFileScrollList.onClickEvent.AddListener(HandleFileClicked);
@@ -348,7 +438,7 @@ namespace EyE.Unity.UI
                 }
                 displayArray.Add(new FileSystemInfoWithNameOverride(info, overrideName));
             }
-            
+
             limitedFileScrollList.SetList(displayArray);
             /*
             limitedFileScrollList.onClickEvent.RemoveAllListeners();
@@ -368,7 +458,7 @@ namespace EyE.Unity.UI
         }
         void HandleActionButtonClicked()
         {
-            if (selectedFile!=null && selectedFile.Exists && warnOnAction1ExistingFileSelected)
+            if (selectedFile != null && selectedFile.Exists && warnOnAction1ExistingFileSelected)
                 YesNoPanel.Open(HandleConfirmActionClicked, existingFileSelectedOnAction1WarningText);
             else
                 HandleConfirmActionClicked(1);
@@ -393,7 +483,7 @@ namespace EyE.Unity.UI
                         filename += "." + fileExtension;
 
                     filename = Path.Combine(currentPath, filename);
-                    FileInfo a =new FileInfo(filename);
+                    FileInfo a = new FileInfo(filename);
                     fileConfirmedActionCallback.Invoke(a);
                 }
                 gameObject.SetActive(false);
@@ -404,21 +494,26 @@ namespace EyE.Unity.UI
             if (confirm != 0)
             {
                 fileConfirmedAction2Callback.Invoke(selectedFile);
-                if(closeWindowOnAction2Confirmed)
+                if (closeWindowOnAction2Confirmed)
                     gameObject.SetActive(false);
             }
         }
 
         bool isSelectedFile(int fileIndex)
         {
-            return (selectedFile != null && selectedFile.FullName == displayedFiles[fileIndex].FullName);
+            bool selected = (selectedFile != null && selectedFile.FullName == displayedFiles[fileIndex].FullName);
+            if (selectedFile != null)
+                Debug.Log("selected name: " + selectedFile.FullName + "  entry name:" + displayedFiles[fileIndex].FullName + " isSelected:" + (selected));
+            else
+                Debug.Log("no currntly selected file detected");
+            return selected;
         }
 
         void ColorListElementBySelection(int fileIndex)
         {
             if (fileIndex == -1) return;
 
-            DisplayFileMono viewElement =limitedFileScrollList.GetDisplayElement(fileIndex);
+            DisplayFileMono viewElement = limitedFileScrollList.GetDisplayElement(fileIndex);
             if (viewElement == null) return;
             Image backGround = viewElement.gameObject.GetComponent<Image>();
             if (backGround == null) return;
@@ -443,27 +538,42 @@ namespace EyE.Unity.UI
             if (isSelectedFile(fileIndex)) //selectedFile != null && selectedFile.Equals(displayedFiles[fileIndex]))//selectedFileIndex == fileIndex)
             {
                 DisplayFileMono viewElement = limitedFileScrollList.GetDisplayElement(fileIndex);
-                if(limitedFileScrollList.HasFocus())
+                if (limitedFileScrollList.HasFocus())
                     EventSystem.current.SetSelectedGameObject(viewElement.gameObject);
             }
         }
         void HandleFileClicked(int fileIndex)
         {
-            Debug.Log("filepanel onclick.  fileIndex: "+ fileIndex);
+            Debug.Log("filepanel onclick.  fileIndex: " + fileIndex);
+            Debug.Log("Time.realtimeSinceStartup:" + Time.realtimeSinceStartup + "lastClickTime:" + lastClickTime + " Diff:" + (Time.realtimeSinceStartup - lastClickTime));
             if (Time.realtimeSinceStartup - lastClickTime < doubleClickMaxInterval)
-                if (isSelectedFile(fileIndex)) //(selectedFile.Equals(displayedFiles[fileIndex]))//selectedFileIndex == fileIndex)
+            {
+                Debug.Log("checking File Selection");
+                if (isSelectedFile(fileIndex))
                 {
+                    Debug.Log("Callingdoubel click");
                     HandleFileDoubleClicked(fileIndex);
                     lastClickTime = Time.realtimeSinceStartup;
                     return;
                 }
+                else
+                {
+                    Debug.Log("NOT Callingdoubel click- file not sleected yet");
+                }
+            }
+            else
+            {
+                Debug.Log("Timer- not a bbl click");
+            }
 
             lastClickTime = Time.realtimeSinceStartup;
+            Debug.Log("setting (and checking) File Selection");
             HandleFileSelected(fileIndex);
             //FileSystemInfo fileClicked = displayedFiles[fileIndex];
         }
         void HandleFileSelected(int fileIndex)
         {
+            //skip if already selected
             if (!isSelectedFile(fileIndex))// (selectedFile==null || !selectedFile.Equals(displayedFiles[fileIndex]))//selectedFileIndex != fileIndex)
             {
 
@@ -472,7 +582,7 @@ namespace EyE.Unity.UI
                 selectedFile = displayedFiles[fileIndex];
 
                 ColorListElementBySelection(fileIndex);
-                if(previousSelectedFileInex != -1)
+                if (previousSelectedFileInex != -1)
                     ColorListElementBySelection(previousSelectedFileInex);//  previousSelectedFileInex);
                 if (IsADirectory(selectedFile))
                     fileNameDisplayAndInput.text = null;
@@ -495,6 +605,7 @@ namespace EyE.Unity.UI
         }
         void HandleFileDoubleClicked(int fileIndex)
         {
+            Debug.Log("Double click");
             //we ignore param in favor of "selectedFile"- should be the same after fileIndex lookup
             FileSystemInfo fileDblClicked = selectedFile;
             if (IsADirectory(fileDblClicked))
@@ -557,6 +668,7 @@ namespace EyE.Unity.UI
         void HandleFileNameChanged(string ignored)
         {
             string newFilename = fileNameDisplayAndInput.text;
+            if (string.IsNullOrEmpty(newFilename)) return;
             if (!allowExtensionChange) newFilename += "." + fileExtension;
             //search files for one with this filename- if found, select it
 
@@ -569,7 +681,7 @@ namespace EyE.Unity.UI
                 }
             }
 
-            // If it doesn't match an existing file, clear selectedFile 
+            // If it doesn't match an existing file, clear se-lectedFile 
             // so the manual input logic triggers on 'Confirm'
             if (selectedFile != null)
             {
@@ -579,7 +691,7 @@ namespace EyE.Unity.UI
             }
             //  SetupFileDisplayList();
         }
-        string FileDetailsText(FileSystemInfo fileInfo)
+        string OLDFileDetailsText(FileSystemInfo fileInfo)
         {
             if (customGetFileDetailsDisplayStringFunction != null) return customGetFileDetailsDisplayStringFunction(fileInfo);
             FileInfo file = fileInfo as FileInfo;
@@ -604,7 +716,47 @@ namespace EyE.Unity.UI
                 "<B>Is a Directory:</B>\nyes";
 
         }
+        string FileDetailsText(FileSystemInfo fileInfo)
+        {
+            // 1. Build the immediate/fallback string first
+            string details = "";
+            FileInfo file = fileInfo as FileInfo;
 
+            if (file != null)
+            {
+                details = "<B>Path:</B>\n" + Path.GetDirectoryName(fileInfo.FullName) + "\n" +
+                          "<B>Created:</B>\n" + fileInfo.CreationTime + "\n" +
+                          "<B>Modified:</B>\n" + fileInfo.LastWriteTime + "\n" +
+                          "<B>Size:</B>\n" + file.Length.FormatLargeNumberSI() + " bytes";
+            }
+            else
+            {
+                details = "<B>Path:</B>\n" + fileInfo.FullName + "\n" +
+                          "<B>Created:</B>\n" + fileInfo.CreationTime + "\n" +
+                          "<B>Modified:</B>\n" + fileInfo.LastWriteTime + "\n" +
+                          "<B>Is a Directory:</B>\nyes";
+            }
+
+            // 2. Sync override
+            if (customGetFileDetailsDisplayStringFunction != null)
+                details = customGetFileDetailsDisplayStringFunction(fileInfo);
+
+            // 3. The "Populate then Overwrite" logic
+            if (customGetFileDetailsDisplayCallbackStringFunction != null)
+            {
+                // Now invoking with both params: the FileInfo and the Callback lambda
+                customGetFileDetailsDisplayCallbackStringFunction(fileInfo, (updatedResult) =>
+                {
+                    // Only overwrite if the UI is still relevant to this file
+                    if (hoverAndSelectedFileDetails != null && (selectedFile == fileInfo || displayedFiles.Contains(fileInfo)))
+                    {
+                        hoverAndSelectedFileDetails.text = updatedResult;
+                    }
+                });
+            }
+
+            return details;
+        }
         bool IsADirectory(FileSystemInfo fileInfo)
         {
             return (fileInfo.Attributes & FileAttributes.Directory) != 0;
