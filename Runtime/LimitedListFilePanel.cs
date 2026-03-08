@@ -746,7 +746,7 @@ namespace EyE.Unity.UI
                           "<B>Modified:</B>\n" + fileInfo.LastWriteTime + "\n" +
                           "<B>Is a Directory:</B>\nyes";
             }
-
+            string callbackOutput = null;
             // 2. Sync override
             if (customGetFileDetailsDisplayStringFunction != null)
             {
@@ -764,14 +764,16 @@ namespace EyE.Unity.UI
                     {
                         Debug.Log("updating hoverAndSelectedFileDetails from callback now: "+updatedResult);
                         hoverAndSelectedFileDetails.text = updatedResult;
+                        callbackOutput = updatedResult;
                     }
                     else
                     {
                         Debug.Log("NOT updating hoverAndSelectedFileDetails from callback- ignored.  hoverAndSelectedFileDetails != null:"+(hoverAndSelectedFileDetails != null));
                     }
                 });
-            }
 
+            }
+            if (callbackOutput != null) return callbackOutput;
             return details;
         }
         bool IsADirectory(FileSystemInfo fileInfo)
