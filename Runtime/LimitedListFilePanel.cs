@@ -624,7 +624,7 @@ namespace EyE.Unity.UI
             if (fileIndex < 0 || fileIndex >= displayedFiles.Count) return;
 
             hoverAndSelectedFileDetails.text = FileDetailsText(displayedFiles[fileIndex]);
-            Debug.Log("wrote default text to details. expect over write on callback");
+          //  Debug.Log("wrote default text to details. expect over write on callback");
             //hoverAndSelectedFileDetails.DisplayValue = instantiatedFileButtons[fileIndex].FileDisplayed;
         }
         void HandleFileMouseExit(int fileIndex)
@@ -634,12 +634,12 @@ namespace EyE.Unity.UI
             hoverAndSelectedFileDetails.text = "";// instantiatedFileButtons[fileIndex].text;
             if (selectedFile != null)
             {
-                Debug.Log("wrote blank text to details. expect over write on callback for selected file");
+             //   Debug.Log("wrote blank text to details. expect over write on callback for selected file");
                 hoverAndSelectedFileDetails.text = FileDetailsText(selectedFile);
             }
             else
             {
-                Debug.Log("wrote blank text to details- cleared on exit mouseover");
+              //  Debug.Log("wrote blank text to details- cleared on exit mouseover");
             }
             //hoverAndSelectedFileDetails.DisplayValue = instantiatedFileButtons[fileIndex].FileDisplayed;
         }
@@ -656,7 +656,7 @@ namespace EyE.Unity.UI
                     DisplayFileMono viewElement = limitedFileScrollList.GetDisplayElement(slectedFileIndex);
                     // if (limitedFileScrollList.HasFocus())
                     EventSystem.current.SetSelectedGameObject(viewElement.gameObject);
-                    Debug.Log("search field changed - found file-updating details. with callback expected to overrite");
+                   // Debug.Log("search field changed - found file-updating details. with callback expected to overrite");
                     hoverAndSelectedFileDetails.text = FileDetailsText(selectedFile);
                 }
                 else
@@ -751,7 +751,7 @@ namespace EyE.Unity.UI
             if (customGetFileDetailsDisplayStringFunction != null)
             {
                 details = customGetFileDetailsDisplayStringFunction(fileInfo);
-                Debug.Log("sync getDetails run-no callback.");
+               // Debug.Log("sync getDetails run-no callback.");
             }
             // 3. The "Populate then Overwrite" logic
             else if (customGetFileDetailsDisplayCallbackStringFunction != null)
@@ -762,13 +762,13 @@ namespace EyE.Unity.UI
                     // Only overwrite if the UI is still relevant to this file
                     if (hoverAndSelectedFileDetails != null)// && (selectedFile.FullName.Equals(fileInfo.FullName)))// || displayedFiles.Contains(fileInfo)))
                     {
-                        Debug.Log("updating hoverAndSelectedFileDetails from callback now: "+updatedResult);
+                      //  Debug.Log("updating hoverAndSelectedFileDetails from callback now: "+updatedResult);
                         hoverAndSelectedFileDetails.text = updatedResult;
                         callbackOutput = updatedResult;
                     }
                     else
                     {
-                        Debug.Log("NOT updating hoverAndSelectedFileDetails from callback- ignored.  hoverAndSelectedFileDetails != null:"+(hoverAndSelectedFileDetails != null));
+                       // Debug.Log("NOT updating hoverAndSelectedFileDetails from callback- ignored.  hoverAndSelectedFileDetails != null:"+(hoverAndSelectedFileDetails != null));
                     }
                 });
 
