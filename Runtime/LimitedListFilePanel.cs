@@ -739,10 +739,12 @@ namespace EyE.Unity.UI
 
             // 2. Sync override
             if (customGetFileDetailsDisplayStringFunction != null)
+            {
                 details = customGetFileDetailsDisplayStringFunction(fileInfo);
-
+                
+            }
             // 3. The "Populate then Overwrite" logic
-            if (customGetFileDetailsDisplayCallbackStringFunction != null)
+            else if (customGetFileDetailsDisplayCallbackStringFunction != null)
             {
                 // Now invoking with both params: the FileInfo and the Callback lambda
                 customGetFileDetailsDisplayCallbackStringFunction(fileInfo, (updatedResult) =>
@@ -750,12 +752,12 @@ namespace EyE.Unity.UI
                     // Only overwrite if the UI is still relevant to this file
                     if (hoverAndSelectedFileDetails != null)// && (selectedFile.FullName.Equals(fileInfo.FullName)))// || displayedFiles.Contains(fileInfo)))
                     {
-                       // Debug.Log("updating hoverAndSelectedFileDetails from callback");
+                        Debug.Log("updating hoverAndSelectedFileDetails from callback now: "+updatedResult);
                         hoverAndSelectedFileDetails.text = updatedResult;
                     }
                     else
                     {
-                       // Debug.Log("NOT updating hoverAndSelectedFileDetails from callback- ignored.  hoverAndSelectedFileDetails != null:"+(hoverAndSelectedFileDetails != null)+ "  selectedFile.Equals(fileInfo):"+ selectedFile.Equals(fileInfo)+ "displayedFiles.Contains(fileInfo):"+ displayedFiles.Contains(fileInfo));
+                        Debug.Log("NOT updating hoverAndSelectedFileDetails from callback- ignored.  hoverAndSelectedFileDetails != null:"+(hoverAndSelectedFileDetails != null));
                     }
                 });
             }
