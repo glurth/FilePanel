@@ -748,7 +748,7 @@ namespace EyE.Unity.UI
                 customGetFileDetailsDisplayCallbackStringFunction(fileInfo, (updatedResult) =>
                 {
                     // Only overwrite if the UI is still relevant to this file
-                    if (hoverAndSelectedFileDetails != null && (selectedFile.FullName.Equals(fileInfo.FullName)))// || displayedFiles.Contains(fileInfo)))
+                    if (hoverAndSelectedFileDetails != null)// && (selectedFile.FullName.Equals(fileInfo.FullName)))// || displayedFiles.Contains(fileInfo)))
                     {
                        // Debug.Log("updating hoverAndSelectedFileDetails from callback");
                         hoverAndSelectedFileDetails.text = updatedResult;
